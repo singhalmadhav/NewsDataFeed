@@ -22,19 +22,17 @@ public class NewsAPIServiceImpl implements NewsAPIService {
     StoredNewsArticleRepository storedNewsArticleRepositoryl;
 
 
-    public Flux<DataModel> getTrendingNews() {
-        Flux<DataModel> dataModelFlux =  webClient.get()
-                .uri("https://newsapi.org/v2/top-headlines?country=us&apiKey=64a239894d104dc49a6c1674b2c1b2c2")
-                .retrieve()
-                .bodyToFlux(DataModel.class)
-                .doOnError(throwable -> log.error("Failed for Some Reason"));
-        DataModel dataModel = dataModelFlux.single().block();
-
-
-
-        storedNewsArticleRepositoryl.save(dataModel.getArticles().get(0));
-        return dataModelFlux;
-    }
+//    public Flux<DataModel> getTrendingNews() {
+//        Flux<DataModel> dataModelFlux =  webClient.get()
+//                .uri("https://newsapi.org/v2/top-headlines?country=us&apiKey=64a239894d104dc49a6c1674b2c1b2c2")
+//                .retrieve()
+//                .bodyToFlux(DataModel.class)
+//                .doOnError(throwable -> log.error("Failed for Some Reason"));
+//        DataModel dataModel = dataModelFlux.single().block();
+//
+//        storedNewsArticleRepositoryl.save(dataModel.getArticles().get(0));
+//        return dataModelFlux;
+//    }
 
     public Flux<DataModel> getTrendingNewsByCategory(String category) {
         return webClient.get()

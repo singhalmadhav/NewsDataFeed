@@ -17,15 +17,15 @@ public class NewsAPIController {
     @Autowired
     NewsAPIService newsAPIService;
 
-    @GetMapping("/get-headlines")
-    public Flux<DataModel> getHeadlines() {
-        try {
-            return newsAPIService.getTrendingNews();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Flux.error(new Exception("Server Error"));
-        }
-    }
+//    @GetMapping("/get-headlines")
+//    public Flux<DataModel> getHeadlines() {
+//        try {
+//            return newsAPIService.getTrendingNews();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return Flux.error(new Exception("Server Error"));
+//        }
+//    }
 
     @GetMapping("/get-headlines/{category}")
     public Flux<DataModel> getHeadlinesByCategory(@PathVariable("category") String category) {

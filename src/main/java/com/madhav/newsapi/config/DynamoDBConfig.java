@@ -1,21 +1,27 @@
 package com.madhav.newsapi.config;
 
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @Configuration
 public class DynamoDBConfig {
 
     @Bean
-    public DynamoDbClient dynamoDbClient() throws URISyntaxException {
-        return DynamoDbClient.builder()
-                .region(Region.of("us-east-1"))
-                .endpointOverride(URI.create("http://localhost:8000"))
+    public AmazonDynamoDB amazonDynamoDB() {
+        return AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
+                        "http://localhost:8000","us-east-1"))
                 .build();
     }
+
+    @Bean("DynamoDB_NewsLine")
+    public DynamoDBMapper dynamoDBMapper(AmazonDynamoDB amazonDynamoDB){
+        return new DynamoDBMapper(amazonDynamoDB);
+    }
+
 }
