@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 
 public interface NewsAPIService {
 
-    Flux<DataModel> getTrendingNews();
+//    Flux<DataModel> getTrendingNews();
 
     Flux<DataModel> getTrendingNewsByCategory(String category);
 }
